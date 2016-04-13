@@ -72,7 +72,8 @@ module.exports = function(router) {
                                 res.send(err);
                             res.json(tips);
                         }
-                    });
+                    );
+                });
 
                 router.route('/nothealthytip')
                 .get(function(req, res) {
@@ -84,7 +85,8 @@ module.exports = function(router) {
                                     res.send(err);
                                 res.json(tips);
                             }
-                        });
+                        );
+                    });
 
 
                     router.route('/tip?:_id')
