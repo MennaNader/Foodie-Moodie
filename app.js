@@ -20,9 +20,14 @@ var port = process.env.PORT || 8080;
 
 var con = function() {
     console.log("i am connected");
-//     mongoose.connection.db.dropDatabase(function(err) {
-//     	console.log(err);
-// });
+    // mongoose.connection.db.dropCollection("Feeling", function(err) {
+    //     console.log(err);
+    // });
+
+    //  mongoose.connection.db.dropDatabase(function(err) {
+    //     	console.log(err);
+    // });
+
 };
 
 var mongoose = require('mongoose');
@@ -30,6 +35,7 @@ mongoose.connect('mongodb://foodie:moodie@ds049854.mongolab.com:49854/foodiemood
 var Schema = mongoose.Schema;
 console.log(mongoose.connection.readyState);
 mongoose.connection.on('connected', con);
+
 
 
 app.set('superSecret', config.secret);
@@ -50,10 +56,12 @@ router.get('/', function(req, res) {
 });
 
 
-require('./app/routes/User')(router, config);
 require('./app/routes/Feeling')(router);
 require('./app/routes/Food')(router);
+require('./app/routes/Tip')(router);
 require('./app/routes/Score')(router);
+
+require('./app/routes/User')(router, config);
 
 //REGISTER OUR ROUTES -----------
 

@@ -1,15 +1,18 @@
-var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+  var mongoose = require('mongoose');
+  var schema = mongoose.Schema;
 
-var scoreSchema = new schema({
-    user_ID: {
-        type: Number,
-        ref: 'User',
-        unique: true
-    },
-    Badge_tips: Number,
-    Badge_approves: Number,
-    totalScore: Number
-});
-
-module.exports = mongoose.model('Score', scoreSchema);
+  var scoreSchema = new schema({
+          Badge_tips: {
+              type: Number,
+              default: 0
+          },
+          Badge_approves: {
+              type: Number,
+              default: 0
+          },
+          totalScore: {
+              type: Number,
+              default: 0
+          }
+  });
+  module.exports = mongoose.model('Score', scoreSchema);

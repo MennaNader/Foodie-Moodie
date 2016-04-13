@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+var schema = mongoose.Schema,ObjectId = schema.ObjectId;
 
 var foodSchema = new schema({
     name: {
@@ -11,20 +11,23 @@ var foodSchema = new schema({
         type: String,
         required: true
     },
-    ty:{
-        type: Boolean,
+    ty: {
+        type: String,
         required: true
     },
     cal: {
         type: Number,
         required: true
     },
-    feeling: [{
-        type: Number,
+    feeling: {
+        type: ObjectId,
         ref: 'Feeling',
         required: true
-    }],
-    pictures: [{ type: String, match: /^http:\/\//i }]
+    },
+    pictures: {
+        type: String,
+        match: /^http:\/\//i
+    }
 });
 
 module.exports = mongoose.model('Food', foodSchema);

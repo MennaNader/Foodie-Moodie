@@ -4,7 +4,8 @@ var schema = mongoose.Schema;
 var feelingSchema = new schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 

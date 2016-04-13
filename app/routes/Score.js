@@ -1,59 +1,71 @@
 module.exports = function(router) {
     var Score = require('../models/score');
+    router.use(function(req, res, next) {
+        // do logging
+        console.log('Something is happening.');
+        next(); // make sure we go to the next routes and don't stop here
+    });
 
     router.route('/scores')
         .post(function(req, res) {
+            console.log(req.method, req.url);
             var score = new Score();
-            score.user_ID = req.body.user_ID;
+            score.Badge_tips = req.body.Badge_tips;
+            score.Badge_approves = req.body.Badge_approves;
+            score.totalScore = req.body.totalScore;
 
-            Score.save(function() {
+            score.save(function(response, err) {
                 if (err)
                     res.send(err);
-
-                res.json({ message: 'Score created!' });
-            });
-        })
-        .get(function(req, res) {
-            Score.find(function(err, Scores) {
-                if (err)
-                    res.send(err);
-                res.json(Scores);
+                res.json(response);
             });
         });
-
-
+    // .get(function(req, res) {
+    //     console.log(req.method, req.url);
+    //     Score.find(function(err, scores) {
+    //         if (err)
+    //             res.send(err);
+    //         console.log(scores);
+    //         res.json(scores);
+    //     });
+    // });
 
     router.route('/score?:_id')
         .get(function(req, res) {
-            Score.findById(req.query._id, function(err, score) {
+            console.log(req.method, req.url);
+            Score.find({
+                _id: req.query._id
+            }, function(err, score) {
                 if (err)
                     res.send(err);
                 res.json(score);
             });
         })
         .put(function(req, res) {
-            Score.findById(req.query._id, function(err, score) {
+            console.log(req.method, req.url);
+            Score.findOne({
+                _id: req.query._id
+            }, function(err, score) {
                 if (err)
                     res.send(err);
-                score.user_ID = req.body.user_ID;
                 score.Badge_tips = req.body.Badge_tips;
-                score.Badge_tips = req.body.Badge_tips;
-                score.feeling = req.body.feeling;
-
-                Score.save(function(err) {
+                score.Badge_approves = req.body.Badge_approves;
+                score.totalScore = req.body.totalScore;
+                score.save(function(err) {
                     if (err)
                         res.send(err);
-                    res.json({ message: 'Score Updated' });
+                    res.json({ message: 'score Updated' });
                 });
             });
         })
         .delete(function(req, res) {
+            console.log(req.method, req.url);
             Score.remove({
                 _id: req.query._id
-            }, function(err, Score) {
+            }, function(err, score) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'Score Deleted!' });
+                res.json({ message: 'score Deleted!' });
             });
         });
 }

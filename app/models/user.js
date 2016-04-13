@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+var schema = mongoose.Schema,ObjectId = schema.ObjectId;
 
 var userSchema = new schema({
     f_name: String,
@@ -19,7 +19,16 @@ var userSchema = new schema({
         required: true
     },
     favourite_type: String,
-    age: Number
+    age: Number,
+    timeline: [{
+        type: ObjectId,
+        ref: 'Tip'
+    }],
+    score: {
+        type: ObjectId,
+        ref: 'Score',
+        required: true
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);

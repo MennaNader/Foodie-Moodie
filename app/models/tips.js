@@ -1,20 +1,36 @@
 var mongoose = require('mongoose');
-var schema = mongoose.Schema;
+var schema = mongoose.Schema,
+    ObjectId = schema.ObjectId;
 
 var tipSchema = new schema({
     data: String,
-    feeling_ID: {
-    	type:  Number,
-    	ref: 'Feeling'
+    feeling: {
+        type: ObjectId,
+        ref: 'Feeling',
+        required: true
     },
-    food_ID: {
-    	type: Number,
-    	ref: 'Food'
+    food: {
+        type: ObjectId,
+        ref: 'Food',
+        required: true
     },
-    user_ID: {
-        type: Number,
-        ref: 'User'
-    }
+    user: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
+    approvals: [{
+        user_ID1: {
+            type: ObjectId,
+            ref: 'User'
+        }
+    }],
+    disapprovals: [{
+        user_ID1: {
+            type: ObjectId,
+            ref: 'User'
+        }
+    }]
 });
 
 module.exports = mongoose.model('Tip', tipSchema);

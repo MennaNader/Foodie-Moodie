@@ -2,26 +2,44 @@ module.exports = function(router) {
 
     var Feeling = require('../models/feeling');
 
-    router.route('/Feelings')
+        router.use(function(req, res, next) {
+        // do logging
+        console.log('Something is happening.');
+        next(); // make sure we go to the next routes and don't stop here
+    });
+
+    router.route('/feeling')
         .post(function(req, res) {
+            console.log(req.method, req.url);
             var feeling = new Feeling();
-            feeling.user_ID = req.body.user_ID;
+            feeling.name = req.body.name;
 
-            feeling.save(function() {
-                if (err)
+            feeling.save(function(err) {
+                if (err) {
                     res.send(err);
-
+                }
                 res.json({ message: 'Feeling created!' });
             });
         })
         .get(function(req, res) {
+            console.log(req.method, req.url);
             Feeling.find(function(err, feelings) {
                 if (err)
                     res.send(err);
                 res.json(feelings);
             });
         });
-
+    router.route('/feelingname?:name')
+        .get(function(req, res) {
+            console.log(req.method, req.url);
+            Feeling.find({
+                name: req.query.name
+            },function(err, tips) {
+                if (err)
+                    res.send(err);
+                res.json(tips);
+            });
+        });
 
 
     router.route('/feeling?:_id')
