@@ -51,7 +51,7 @@ module.exports = function(router) {
                         }, function(err, food) {
                             if (err)
                                 res.send(err);
-                            res.json(tips);
+                            res.json(food);
                         }
                     );
                 });
@@ -64,7 +64,7 @@ module.exports = function(router) {
                             }, function(err, food) {
                                 if (err)
                                     res.send(err);
-                                res.json(tips);
+                                res.json(food);
                             }
                         );
                     });
