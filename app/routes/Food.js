@@ -43,6 +43,31 @@ module.exports = function(router) {
             });
         });
 
+        router.route('/healthyfood')
+            .get(function(req, res) {
+                    console.log(req.method, req.url);
+                    Food.find({
+                            ty: 'true'
+                        }, function(err, food) {
+                            if (err)
+                                res.send(err);
+                            res.json(tips);
+                        }
+                    );
+                });
+
+                router.route('/nothealthyfood')
+                .get(function(req, res) {
+                        console.log(req.method, req.url);
+                        Food.find({
+                                ty: 'false'
+                            }, function(err, food) {
+                                if (err)
+                                    res.send(err);
+                                res.json(tips);
+                            }
+                        );
+                    });
 
     router.route('/food?:_id')
         .get(function(req, res) {
