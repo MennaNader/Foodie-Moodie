@@ -22,7 +22,8 @@ var userSchema = new schema({
     age: Number,
     timeline: [{
         type: ObjectId,
-        ref: 'Tip'
+        ref: 'Tip',
+        unique: true
     }],
     score: {
         type: ObjectId,

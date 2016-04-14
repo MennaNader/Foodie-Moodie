@@ -57,15 +57,15 @@ module.exports = function(router, config) {
                     res.send(err);
                 res.json(response);
             });
-         });
-        // .get(function(req, res) {
-        //     console.log(req.method, req.url);
-        //     User.find(function(err, users) {
-        //         if (err)
-        //             res.send(err);
-        //         res.json(users);
-        //     });
-        // });
+        });
+    // .get(function(req, res) {
+    //     console.log(req.method, req.url);
+    //     User.find(function(err, users) {
+    //         if (err)
+    //             res.send(err);
+    //         res.json(users);
+    //     });
+    // });
 
     router.route('/userbyname')
         .get(function(req, res) {
@@ -97,6 +97,23 @@ module.exports = function(router, config) {
     //         });
     //     }
     // });
+
+    router.route('/userDisease?:_id')
+        .put(function(req, res) {
+            console.log(req.method, req.url);
+            User.findOne({
+                    _id: req.query._id
+                },
+                function(err, user) {
+                    if (err)
+                        res.send(err);
+                    var d = {};
+                    d.name = req.body.name;
+                    user.update({ $push: { "disease": d } }, function(err) {
+                        if (err) return res.send("contact addMsg error: " + err);
+                    });
+                });
+        });
 
 
     router.route('/users?:_id')

@@ -28,7 +28,8 @@ var tipSchema = new schema({
     disapprovals: [{
         user_ID1: {
             type: ObjectId,
-            ref: 'User'
+            ref: 'User',
+            unique: true
         }
     }]
 });
