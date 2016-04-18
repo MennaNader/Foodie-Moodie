@@ -50,7 +50,7 @@ module.exports = function(router) {
             });
         });
 
-    router.route('/TipApproval?:_id')
+    router.route('/TipApproval?_id')
         .put(function(req, res) {
             console.log(req.method, req.url);
             var u = {};
@@ -68,7 +68,7 @@ module.exports = function(router) {
             });
         });
 
-            router.route('/TipDisapproval?:_id')
+            router.route('/TipDisapproval?_id')
         .put(function(req, res) {
             console.log(req.method, req.url);
             var u = {};
