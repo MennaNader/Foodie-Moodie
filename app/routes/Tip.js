@@ -68,7 +68,7 @@ module.exports = function(router) {
             });
         });
 
-            router.route('/TipDisapproval?_id')
+    router.route('/TipDisapproval?_id')
         .put(function(req, res) {
             console.log(req.method, req.url);
             var u = {};
@@ -77,6 +77,11 @@ module.exports = function(router) {
                 _id: req.params._id
             }, {
                 $pull: {
+                    'approvals': {
+                        user_ID1: u
+                    }
+                },
+                $push: {
                     'disapprovals': {
                         user_ID1: u
                     }
