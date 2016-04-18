@@ -30,7 +30,7 @@ module.exports = function(router) {
     //     });
     // });
 
-    router.route('/score?:_id')
+    router.route('/score?_id')
         .get(function(req, res) {
             console.log(req.method, req.url);
             Score.find({

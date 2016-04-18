@@ -6,7 +6,7 @@ module.exports = function(router) {
         console.log('Something is happening.');
         next(); // make sure we go to the next routes and don't stop here
     });
-    router.route('/tip')
+    router.route('/tips')
         .post(function(req, res) {
             console.log(req.method, req.url);
             console.log(req.body);
