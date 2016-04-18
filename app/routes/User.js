@@ -97,18 +97,6 @@ module.exports = function(router, config) {
     //         });
     //     }
     // });
-    router.route('/userScore?:_id')
-        .get(function(req, res) {
-            console.log(req.method, req.url);
-            User.find({
-                _id: req.query._id
-            }, function(err, user) {
-                if (err)
-                    res.send(err);
-                console.log(user);
-                res.json(user.score);
-            });
-        });
     router.route('/userDisease?:_id')
         .put(function(req, res) {
             console.log(req.method, req.url);
