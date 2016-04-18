@@ -59,7 +59,27 @@ module.exports = function(router) {
                 _id: req.params._id
             }, {
                 $push: {
-                    'users': u
+                    'approvals': {
+                        user_ID1: u
+                    }
+                }
+            }, function(err) {
+                if (err) return res.send("contact addMsg error: " + err);
+            });
+        });
+
+            router.route('/TipDisapproval?:_id')
+        .put(function(req, res) {
+            console.log(req.method, req.url);
+            var u = {};
+            u._id = req.body.userid;
+            Tip.update({
+                _id: req.params._id
+            }, {
+                $pull: {
+                    'disapprovals': {
+                        user_ID1: u
+                    }
                 }
             }, function(err) {
                 if (err) return res.send("contact addMsg error: " + err);
