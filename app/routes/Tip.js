@@ -83,11 +83,17 @@ module.exports = function(router) {
                 if (err)
                     res.send(err);
                 console.log(tip);
+                var flag = false;
                 tip.approvals.find(function(element, index, array) {
                     if (element == req.body.userid)
                         tip.approvals.pull(req.body.userid);
                 });
-                tip.disapprovals.push(req.body.userid);
+                tip.disapprovals.find(function(element, index, array) {
+                    if (element == req.body.userid)
+                        flag = true;
+                });
+                if (!flag)
+                    tip.disapprovals.push(req.body.userid);
                 tip.save(function(err) {
                     if (err)
                         console.log(err);
