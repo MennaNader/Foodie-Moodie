@@ -58,14 +58,18 @@ module.exports = function(router, config) {
                 res.json(response);
             });
         });
-    // .get(function(req, res) {
-    //     console.log(req.method, req.url);
-    //     User.find(function(err, users) {
-    //         if (err)
-    //             res.send(err);
-    //         res.json(users);
-    //     });
-    // });
+
+    router.route('/userbyscore')
+        .get(function(req, res) {
+            console.log(req.method, req.url);
+            User.find({
+                score: req.body.score
+            }, function(err, user) {
+                if (err)
+                    res.send(err);
+                res.json(user);
+            });
+        });
 
     router.route('/userbyname')
         .get(function(req, res) {

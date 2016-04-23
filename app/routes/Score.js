@@ -30,6 +30,15 @@ module.exports = function(router) {
     //     });
     // });
 
+    router.route('/more')
+        .get(function(req, res) {
+            Score.find({}).sort({ totalScore: 'desc' }).exec(function(err, docs) {
+                if (err)
+                    console.log(err);
+                res.json(docs);
+            });
+        });
+
     router.route('/score?:_id')
         .get(function(req, res) {
             console.log(req.method, req.url);
