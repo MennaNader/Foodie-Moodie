@@ -20,10 +20,8 @@ var tipSchema = new schema({
         required: true
     },
     approvals: [{
-        user_ID1: {
             type: ObjectId,
             ref: 'User'
-        }
     }],
     disapprovals: [{
         user_ID1: {

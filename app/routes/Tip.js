@@ -50,41 +50,35 @@ module.exports = function(router) {
             });
         });
 
-    router.route('/TipApproval?_id')
+    router.route('/approvaltip?:_id')
         .put(function(req, res) {
+            console.log("object");
             console.log(req.method, req.url);
-            var u = {};
-            u._id = req.body.userid;
+            var u = {
+                _id: req.body.userid
+            };
             Tip.update({
                 _id: req.params._id
             }, {
                 $push: {
-                    'approvals': {
-                        user_ID1: u
-                    }
+                    approvals: u
                 }
             }, function(err) {
                 if (err) return res.send("contact addMsg error: " + err);
             });
         });
 
-    router.route('/TipDisapproval?_id')
+    router.route('/disapprovaltip?_id')
         .put(function(req, res) {
             console.log(req.method, req.url);
             var u = {};
             u._id = req.body.userid;
-            Tip.update({
-                _id: req.params._id
-            }, {
+            Tip.update(req.params._id, {
                 $pull: {
-                    'approvals': {
-                        user_ID1: u
-                    }
+                    'approvals': u
                 },
                 $push: {
-                    'disapprovals': {
-                        user_ID1: u
-                    }
+                    'disapprovals': u
                 }
             }, function(err) {
                 if (err) return res.send("contact addMsg error: " + err);
