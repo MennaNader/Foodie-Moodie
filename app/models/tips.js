@@ -21,14 +21,13 @@ var tipSchema = new schema({
     },
     approvals: [{
             type: ObjectId,
-            ref: 'User'
+            ref: 'User',
+            unique: true
     }],
     disapprovals: [{
-        user_ID1: {
             type: ObjectId,
             ref: 'User',
             unique: true
-        }
     }]
 });
 

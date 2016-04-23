@@ -54,34 +54,45 @@ module.exports = function(router) {
         .put(function(req, res) {
             console.log("object");
             console.log(req.method, req.url);
-            var u = {
-                _id: req.body.userid
-            };
-            Tip.update({
-                _id: req.params._id
-            }, {
-                $push: {
-                    approvals: u
-                }
-            }, function(err) {
-                if (err) return res.send("contact addMsg error: " + err);
+            Tip.findById(req.query._id, function(err, tip) {
+                if (err)
+                    res.send(err);
+                console.log(tip);
+                var flag = false;
+                tip.disapprovals.find(function(element, index, array) {
+                    if (element == req.body.userid)
+                        tip.disapprovals.pull(req.body.userid);
+                });
+                tip.approvals.find(function(element, index, array) {
+                    if (element == req.body.userid)
+                        flag = true;
+                });
+                if (!flag)
+                    tip.approvals.push(req.body.userid);
+                tip.save(function(err) {
+                    if (err)
+                        console.log(err);
+                    res.json({ message: 'approval added' });
+                });
             });
         });
-
-    router.route('/disapprovaltip?_id')
+    router.route('/disapprovaltip?:_id')
         .put(function(req, res) {
             console.log(req.method, req.url);
-            var u = {};
-            u._id = req.body.userid;
-            Tip.update(req.params._id, {
-                $pull: {
-                    'approvals': u
-                },
-                $push: {
-                    'disapprovals': u
-                }
-            }, function(err) {
-                if (err) return res.send("contact addMsg error: " + err);
+            Tip.findById(req.query._id, function(err, tip) {
+                if (err)
+                    res.send(err);
+                console.log(tip);
+                tip.approvals.find(function(element, index, array) {
+                    if (element == req.body.userid)
+                        tip.approvals.pull(req.body.userid);
+                });
+                tip.disapprovals.push(req.body.userid);
+                tip.save(function(err) {
+                    if (err)
+                        console.log(err);
+                    res.json({ message: 'disapproval added' });
+                });
             });
         });
 
@@ -114,7 +125,6 @@ module.exports = function(router) {
                 tip.user = req.body.user;
                 tip.feeling = req.body.feeling;
                 tip.food = req.body.food;
-                // tip.approvals = req.body.approvals;
 
                 tip.save(function(err) {
                     if (err)
