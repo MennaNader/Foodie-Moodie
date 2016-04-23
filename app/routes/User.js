@@ -63,7 +63,7 @@ module.exports = function(router, config) {
         .get(function(req, res) {
             console.log(req.method, req.url);
             User.find({
-                score: req.body.score
+                score: req.query.score
             }, function(err, user) {
                 if (err)
                     res.send(err);
