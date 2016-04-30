@@ -11,7 +11,7 @@ module.exports = function(router) {
     router.route('/mood')
         .post(function(req, res) {
             console.log(req.method, req.url);
-            var mood = new mood();
+            var mood = new Mood();
             mood.name = req.body.name;
 
             mood.save(function(err) {
