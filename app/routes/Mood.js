@@ -1,6 +1,6 @@
 module.exports = function(router) {
 
-    var Feeling = require('../models/feeling');
+    var Mood = require('../models/mood');
 
         router.use(function(req, res, next) {
         // do logging
@@ -8,31 +8,31 @@ module.exports = function(router) {
         next(); // make sure we go to the next routes and don't stop here
     });
 
-    router.route('/feeling')
+    router.route('/mood')
         .post(function(req, res) {
             console.log(req.method, req.url);
-            var feeling = new Feeling();
-            feeling.name = req.body.name;
+            var mood = new mood();
+            mood.name = req.body.name;
 
-            feeling.save(function(err) {
+            mood.save(function(err) {
                 if (err) {
                     res.send(err);
                 }
-                res.json({ message: 'Feeling created!' });
+                res.json({ message: 'mood created!' });
             });
         })
         .get(function(req, res) {
             console.log(req.method, req.url);
-            Feeling.find(function(err, feelings) {
+            Mood.find(function(err, moods) {
                 if (err)
                     res.send(err);
-                res.json(feelings);
+                res.json(moods);
             });
         });
-    router.route('/feelingname?:name')
+    router.route('/moodname?:name')
         .get(function(req, res) {
             console.log(req.method, req.url);
-            Feeling.find({
+            Mood.find({
                 name: req.query.name
             },function(err, tips) {
                 if (err)
@@ -42,35 +42,35 @@ module.exports = function(router) {
         });
 
 
-    router.route('/feeling?:_id')
+    router.route('/moods?:_id')
         .get(function(req, res) {
-            Feeling.findById(req.query._id, function(err, feeling) {
+            Mood.findById(req.query._id, function(err, mood) {
                 if (err)
                     res.send(err);
-                res.json(feeling);
+                res.json(mood);
             });
         })
         .put(function(req, res) {
-            Feeling.findById(req.query._id, function(err, feeling) {
+            Mood.findById(req.query._id, function(err, mood) {
                 if (err)
                     res.send(err);
 
-                feeling.name = req.body.name;
+                mood.name = req.body.name;
 
-                feeling.save(function(err) {
+                mood.save(function(err) {
                     if (err)
                         res.send(err);
-                    res.json({ message: 'Feeling Updated' });
+                    res.json({ message: 'mood Updated' });
                 });
             });
         })
         .delete(function(req, res) {
-            Feeling.remove({
+            Mood.remove({
                 _id: req.query._id
-            }, function(err, feeling) {
+            }, function(err, mood) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'Feeling Deleted!' });
+                res.json({ message: 'mood Deleted!' });
             });
         });
 }

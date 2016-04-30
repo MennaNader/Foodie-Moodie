@@ -4,9 +4,9 @@ var schema = mongoose.Schema,
 
 var tipSchema = new schema({
     data: String,
-    feeling: {
+    mood: {
         type: ObjectId,
-        ref: 'Feeling',
+        ref: 'Mood',
         required: true
     },
     food: {

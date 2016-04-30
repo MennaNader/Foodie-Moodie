@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
-var feelingSchema = new schema({
+var moodSchema = new schema({
     name: {
         type: String,
         required: true,
@@ -9,4 +9,4 @@ var feelingSchema = new schema({
     }
 });
 
-module.exports = mongoose.model('Feeling', feelingSchema);
+module.exports = mongoose.model('Mood', moodSchema);

@@ -19,9 +19,9 @@ var foodSchema = new schema({
         type: Number,
         required: true
     },
-    feeling: {
+    mood: {
         type: ObjectId,
-        ref: 'Feeling',
+        ref: 'Mood',
         required: true
     },
     pictures: {

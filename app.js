@@ -16,11 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8080;
 
 var con = function() {
     console.log("i am connected");
-    // mongoose.connection.db.dropCollection("Feeling", function(err) {
+    // mongoose.connection.db.dropCollection("mood", function(err) {
     //     console.log(err);
     // });
 
@@ -56,7 +56,7 @@ router.get('/', function(req, res) {
 });
 
 
-require('./app/routes/Feeling')(router);
+require('./app/routes/Mood')(router);
 require('./app/routes/Food')(router);
 require('./app/routes/Tip')(router);
 require('./app/routes/Score')(router);

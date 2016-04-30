@@ -13,11 +13,11 @@ module.exports = function(router) {
             console.log(req.query);
             var tip = new Tip();
             tip.data = req.body.data;
-            tip.feeling = req.body.feeling;
+            tip.mood = req.body.mood;
             tip.food = req.body.food;
             tip.user = req.body.use;
             // tip.approvals = req.body.approvals;
-            console.log(req.body.feeling);
+            console.log(req.body.mood);
             console.log(req.body.use);
             console.log(req.body.food);
             console.log(req.body.data)
@@ -38,11 +38,11 @@ module.exports = function(router) {
             });
         });
 
-    router.route('/tipfeeling?:feeling')
+    router.route('/tipmood?:mood')
         .get(function(req, res) {
             console.log(req.method, req.url);
             Tip.find({
-                feeling: req.query.feeling
+                mood: req.query.mood
             }, function(err, tips) {
                 if (err)
                     res.send(err);
@@ -129,7 +129,7 @@ module.exports = function(router) {
                     res.send(err);
                 tip.data = req.body.data;
                 tip.user = req.body.user;
-                tip.feeling = req.body.feeling;
+                tip.mood = req.body.mood;
                 tip.food = req.body.food;
 
                 tip.save(function(err) {

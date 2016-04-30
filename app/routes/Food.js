@@ -14,7 +14,7 @@ module.exports = function(router) {
             food.cat = req.body.cat;
             food.ty = req.body.ty;
             food.cal = req.body.cal;
-            food.feeling = req.body.feeling;
+            food.mood = req.body.mood;
 
             food.save(function(err) {
                 if (err)
@@ -87,7 +87,7 @@ module.exports = function(router) {
                 food.cat = req.body.cat;
                 food.ty = req.body.ty;
                 food.cal = req.body.cal;
-                food.feeling = req.body.feeling;
+                food.mood = req.body.mood;
 
                 food.save(function(err) {
                     if (err)
