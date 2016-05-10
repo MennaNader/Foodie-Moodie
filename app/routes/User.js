@@ -16,7 +16,7 @@ module.exports = function(router, config) {
                     res.json({ message: 'Authentication Failed!' });
                 } else if (user) {
                     if (user.password != req.body.password) {
-                        res.json({ message: 'Authentication Failed!' });
+                        res.json({ message: 'Authentication Failed due to wrong password!' });
                     } else {
                         var token = jwt.sign(user, config.secret, {
                             expiresIn: 50000
