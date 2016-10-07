@@ -57,7 +57,7 @@ module.exports = function(router) {
             Tip.findById(req.query._id, function(err, tip) {
                 if (err)
                     res.send(err);
-                console.log(tip.disapprovals.includes("5"));
+                console.log(tip.disapprovals.prototype);
                 if (tip.disapprovals.includes(req.body.userid)) {
                     tip.disapprovals.pull(req.body.userid);
                 }
