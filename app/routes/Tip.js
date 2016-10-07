@@ -58,17 +58,12 @@ module.exports = function(router) {
                 if (err)
                     res.send(err);
                 console.log(tip);
-                var flag = false;
-                tip.disapprovals.find(function(element, index, array) {
-                    if (element == req.body.userid)
-                        tip.disapprovals.pull(req.body.userid);
-                });
-                tip.approvals.find(function(element, index, array) {
-                    if (element == req.body.userid)
-                        flag = true;
-                });
-                if (!flag)
+                if (tip.disapprovals.includes(req.body.userid)) {
+                    tip.disapprovals.pull(req.body.userid);
+                }
+                if (!tip.approvals.includes(req.body.userid)) {
                     tip.approvals.push(req.body.userid);
+                }
                 tip.save(function(err) {
                     if (err)
                         console.log(err);
@@ -83,17 +78,12 @@ module.exports = function(router) {
                 if (err)
                     res.send(err);
                 console.log(tip);
-                var flag = false;
-                tip.approvals.find(function(element, index, array) {
-                    if (element == req.body.userid)
-                        tip.approvals.pull(req.body.userid);
-                });
-                tip.disapprovals.find(function(element, index, array) {
-                    if (element == req.body.userid)
-                        flag = true;
-                });
-                if (!flag)
+                if (tip.approvals.includes(req.body.userid)) {
+                    tip.approvals.pull(req.body.userid);
+                }
+                if (!tip.disapprovals.includes(req.body.userid)) {
                     tip.disapprovals.push(req.body.userid);
+                }
                 tip.save(function(err) {
                     if (err)
                         console.log(err);
