@@ -58,10 +58,10 @@ module.exports = function(router) {
                 if (err)
                     res.send(err);
                 console.log(tip);
-                if (tip.disapprovals.find(req.body.userid)) {
+                if (tip.disapprovals.includes(req.body.userid)) {
                     tip.disapprovals.pull(req.body.userid);
                 }
-                if (!tip.approvals.find(req.body.userid)) {
+                if (!tip.approvals.includes(req.body.userid)) {
                     tip.approvals.push(req.body.userid);
                 }
                 tip.save(function(err) {
@@ -78,10 +78,10 @@ module.exports = function(router) {
                 if (err)
                     res.send(err);
                 console.log(tip.approvals);
-                if (tip.approvals.find(req.body.userid)) {
+                if (tip.approvals.includes(req.body.userid)) {
                     tip.approvals.pull(req.body.userid);
                 }
-                if (!tip.disapprovals.find(req.body.userid)) {
+                if (!tip.disapprovals.includes(req.body.userid)) {
                     tip.disapprovals.push(req.body.userid);
                 }
                 tip.save(function(err) {
@@ -140,27 +140,32 @@ module.exports = function(router) {
             });
         });
 
-    if (!Array.prototype.find) {
-        Array.prototype.find = function(predicate) {
+    if (!Array.prototype.includes) {
+        Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
             'use strict';
-            if (this == null) {
-                throw new TypeError('Array.prototype.find called on null or undefined');
+            var O = Object(this);
+            var len = parseInt(O.length) || 0;
+            if (len === 0) {
+                return false;
             }
-            if (typeof predicate !== 'function') {
-                throw new TypeError('predicate must be a function');
+            var n = parseInt(arguments[1]) || 0;
+            var k;
+            if (n >= 0) {
+                k = n;
+            } else {
+                k = len + n;
+                if (k < 0) { k = 0; }
             }
-            var list = Object(this);
-            var length = list.length >>> 0;
-            var thisArg = arguments[1];
-            var value;
-
-            for (var i = 0; i < length; i++) {
-                value = list[i];
-                if (predicate.call(thisArg, value, i, list)) {
-                    return value;
+            var currentElement;
+            while (k < len) {
+                currentElement = O[k];
+                if (searchElement === currentElement ||
+                    (searchElement !== searchElement && currentElement !== currentElement)) {
+                    return true;
                 }
+                k++;
             }
-            return undefined;
+            return false;
         };
     }
 };
