@@ -24,9 +24,9 @@ var con = function() {
     //     console.log(err);
     // });
 
-    //  mongoose.connection.db.dropDatabase(function(err) {
-    //     	console.log(err);
-    // });
+     mongoose.connection.db.dropDatabase(function(err) {
+        	console.log(err);
+    });
 
 };
 
