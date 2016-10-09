@@ -78,7 +78,7 @@ module.exports = function(router) {
                 if (err)
                     res.send(err);
                 console.log(tip.approvals);
-                console.log(tip.approvals.includes(req.body.userid));
+                console.log(req.body.userid);
                 if (tip.approvals.includes(req.body.userid)) {
                     tip.approvals.pull(req.body.userid);
                 }
