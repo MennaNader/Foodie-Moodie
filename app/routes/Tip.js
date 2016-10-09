@@ -161,7 +161,7 @@ module.exports = function(router) {
             var currentElement;
             while (k < len) {
                 currentElement = O[k];
-                console.log(currentElement)
+                console.log(currentElement , searchElement )
                 if (searchElement === currentElement ||
                     (searchElement !== searchElement && currentElement !== currentElement)) {
                     return true;
